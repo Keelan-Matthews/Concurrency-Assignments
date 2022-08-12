@@ -11,11 +11,11 @@ public class Project
 	public Project(){
 		develop.add(new Component('s', "Calculator"));
 		develop.add(new Component('m', "Calendar"));
-		develop.add(new Component('s', "Billing"));
-		develop.add(new Component('l', "Timetable"));
-		develop.add(new Component('m', "Phonebook"));
-		develop.add(new Component('l', "User Manager"));
-		develop.add(new Component('s', "Api"));
+		// develop.add(new Component('s', "Billing"));
+		// develop.add(new Component('l', "Timetable"));
+		// develop.add(new Component('m', "Phonebook"));
+		// develop.add(new Component('l', "User Manager"));
+		// develop.add(new Component('s', "Api"));
 		developCount = develop.size();
 	}
 
@@ -63,6 +63,20 @@ public class Project
 
 	public synchronized int getTestingSize(){
 		return testing.size();
+	}
+
+	public synchronized void printDevelop(){
+		System.out.println("Develop:\n");
+		for (Component c : develop) {
+			System.out.println(c.name);
+		}
+	}
+
+	public synchronized void printTesting(){
+		System.out.println("Testing:\n");
+		for (Component c : testing) {
+			System.out.println(c.name);
+		}
 	}
 
 }
