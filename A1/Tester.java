@@ -11,46 +11,46 @@ public class Tester extends Thread {
 	public void run()
 	{
 		System.out.println(Thread.currentThread().getName() + " is ready to test a component");
-		while (project.developCount > project.testCount && !project.isTestingEmpty()) {
-			
-			lock.lock();
-			try {
-				Component c = project.getFromTesting();
-
-				int work = (int)(Math.random() * (400)) + 100;
+		
+		while (project.developCount > project.testCount) {
+			if (!project.isTestingEmpty()) {
+				lock.lock();
 				try {
-					Thread.sleep(work);
-				}
-				catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				project.setTestTime(c, work);
-
-				if (c.testTime <= 0) {
-					System.out.println(Thread.currentThread().getName() + " finished testing " + c.name);
-					project.comleteTesting(c);
-				}
-				else {
-					System.out.println(Thread.currentThread().getName() + " tested " + c.name + " for " + work + "ms. Time remaining: " + c.testTime + "ms");
-					project.addToTesting(c);
-				}
-				
-			} finally {
-				System.out.println(Thread.currentThread().getName() + " is taking a break.\n");
-				lock.unlock();
-
-				if (project.developCount > project.testCount) {
-					int breaktime = (int)(Math.random() * (50)) + 50;
+					Component c = project.getFromTesting();
+	
+					int work = (int)(Math.random() * (400)) + 100;
 					try {
-						Thread.sleep(breaktime);
+						Thread.sleep(work);
 					}
 					catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-				}
-				else {
-					System.out.println("It seems that all components have been tested.");
+	
+					project.setTestTime(c, work);
+	
+					if (c.testTime <= 0) {
+						System.out.println(Thread.currentThread().getName() + " finished testing " + c.name);
+						project.comleteTesting(c);
+					}
+					else {
+						System.out.println(Thread.currentThread().getName() + " tested " + c.name + " for " + work + "ms. Time remaining: " + c.testTime + "ms");
+						project.addToTesting(c);
+					}
+					
+				} catch (NullPointerException e) {}
+				finally {
+					System.out.println(Thread.currentThread().getName() + " is taking a break.\n");
+					lock.unlock();
+	
+					if (project.developCount > project.testCount) {
+						int breaktime = (int)(Math.random() * (50)) + 50;
+						try {
+							Thread.sleep(breaktime);
+						}
+						catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		}

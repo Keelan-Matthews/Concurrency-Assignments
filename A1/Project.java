@@ -11,11 +11,11 @@ public class Project
 	public Project(){
 		develop.add(new Component('s', "Calculator"));
 		develop.add(new Component('m', "Calendar"));
-		// develop.add(new Component('s', "Billing"));
-		// develop.add(new Component('l', "Timetable"));
-		// develop.add(new Component('m', "Phonebook"));
-		// develop.add(new Component('l', "User Manager"));
-		// develop.add(new Component('s', "Api"));
+		develop.add(new Component('s', "Billing"));
+		develop.add(new Component('l', "Timetable"));
+		develop.add(new Component('m', "Phonebook"));
+		develop.add(new Component('l', "User Manager"));
+		develop.add(new Component('s', "Api"));
 		developCount = develop.size();
 	}
 
@@ -34,7 +34,7 @@ public class Project
 	}
 
 	public synchronized Component getFromDevelop(){
-		return develop.poll();
+			return develop.poll();
 	}
 
 	public synchronized void setDevelopTime(Component c, long time){
@@ -46,7 +46,7 @@ public class Project
 	}
 
 	public synchronized Component getFromTesting(){
-		return testing.poll();
+			return testing.poll();
 	}
 
 	public synchronized boolean isDevelopEmpty(){

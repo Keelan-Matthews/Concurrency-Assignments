@@ -35,7 +35,8 @@ public class Developer extends Thread {
 					project.addToDevelop(c);
 				}
 
-			} finally {
+			} catch (NullPointerException e) {}
+			finally {
 				System.out.println(Thread.currentThread().getName() + " is taking a break.\n");
 				lock.unlock();
 
@@ -47,9 +48,6 @@ public class Developer extends Thread {
 					catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-				}
-				else {
-					System.out.println("It seems that all components have been developed.");
 				}
 			}
 		}

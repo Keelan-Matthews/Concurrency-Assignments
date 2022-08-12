@@ -2,23 +2,24 @@ public class Main {
     public static void main(String[] args) {
         Project project = new Project();
         
-        int developerCount = 2;
-        int testerCount = 2;
-	    Developer[] developers = new Developer[developerCount];
-        Tester[] testers = new Tester[testerCount];
+        int teamCount = 4;
 
-        Bakery devLock = new Bakery(developerCount);
-        Bakery testLock = new Bakery(testerCount);
+	    Developer[] developers = new Developer[teamCount];
+        Tester[] testers = new Tester[teamCount];
 
-        for(int i = 0; i < developerCount; i++) {
+        Bakery devLock = new Bakery(teamCount);
+        Bakery testLock = new Bakery(teamCount);
+
+        for(int i = 0; i < teamCount; i++) {
             developers[i] = new Developer(devLock, project);
             developers[i].setName("Developer-" + i);
-            developers[i].start();
-        }
-
-        for(int i = 0; i < testerCount; i++) {
             testers[i] = new Tester(testLock, project);
             testers[i].setName("Tester-" + i);
+            
+        }
+
+        for(int i = 0; i < teamCount; i++) {
+            developers[i].start();
             testers[i].start();
         }
     }
