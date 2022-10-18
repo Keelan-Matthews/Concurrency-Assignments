@@ -5,6 +5,7 @@ public class Main {
         Vehicle[] vehicles = new Vehicle[5];
         for (int i = 0; i < 5; i++) {
             vehicles[i] = new Vehicle(roadNetwork);
+            vehicles[i].setName(Integer.toString(i));
         }
         // set paths for each vehicle
         vehicles[0].setPath(0, 1, 3);
