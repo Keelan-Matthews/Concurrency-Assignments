@@ -9,6 +9,7 @@ public class Intersection {
     AtomicInteger size;
     int capacity;
     volatile Node head, tail;
+    TrafficLight light;
 
     public Intersection(int _id) {
         this.id = _id;
@@ -20,7 +21,24 @@ public class Intersection {
         capacity = 2;
         head = new Node(null);
         tail = head;
+    }
 
+    public void setAdjIntersections(int i1, int i2) {
+        light = new TrafficLight(i1, i2);
+        light.start();
+    }
+
+    public void stopLight() {
+        light.stopLight();
+    }
+
+    public String getEdgeState(int edge) {
+        TrafficLight.State state = light.getLightState();
+        if (edge == 1) {
+            return state.e1;
+        } else {
+            return state.e2;
+        }
     }
 
     public void enq(String vehicleName) {
@@ -36,6 +54,7 @@ public class Intersection {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
+            printQueue();
             enqLock.unlock();
         }
         if (mustWakeDequeuers) {
@@ -62,6 +81,7 @@ public class Intersection {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
+            printQueue();
             deqLock.unlock();
         }
         if (mustWakeEnqueuers) {
@@ -73,6 +93,30 @@ public class Intersection {
             }
         }
         return vehicleName;
+    }
+
+    private void printQueue() {
+        if (size.get() > 0) {
+            enqLock.lock();
+            deqLock.lock();
+            try {
+                Node curr = head.next;
+                System.out.println("Current cars on intersection " + id + ":\n");
+                System.out.print("|");
+                while (curr != null) {
+                    System.out.print(curr.vehicleName);
+                    curr = curr.next;
+                    if (curr != null) {
+                        System.out.print(" -> ");
+                    }
+                }
+                System.out.print("|");
+                System.out.println("");
+            } finally {
+                enqLock.unlock();
+                deqLock.unlock();
+            }
+        }
     }
 
     public class Node {

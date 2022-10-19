@@ -1,7 +1,24 @@
 public class Main {
     public static void main(String[] args) {
         RoadNetwork roadNetwork = new RoadNetwork();
-        // create 5 vehicles
+        testOneVehicle(roadNetwork, 0, 1, 2);
+    }
+
+    public static void testOneVehicle(RoadNetwork roadNetwork, int id1, int id2, int id3) {
+        Vehicle vehicle = new Vehicle(roadNetwork);
+        vehicle.setName(Integer.toString(0));
+        vehicle.setPath(id1, id2, id3);
+        vehicle.start();
+        try {
+            vehicle.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Vehicle has finished its path");
+        roadNetwork.stopLights();
+    }
+
+    public static void testMultipleVehicles(RoadNetwork roadNetwork) {
         Vehicle[] vehicles = new Vehicle[5];
         for (int i = 0; i < 5; i++) {
             vehicles[i] = new Vehicle(roadNetwork);
@@ -28,5 +45,6 @@ public class Main {
         }
 
         System.out.println("All vehicles have finished their paths");
+        roadNetwork.stopLights();
     }
 }
