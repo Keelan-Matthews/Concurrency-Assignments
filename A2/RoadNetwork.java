@@ -5,12 +5,14 @@ import java.util.Map;
 
 public class RoadNetwork {
     private Map<Intersection, List<Intersection>> network = new HashMap<>();
+    private Bakery bakery;
 
-    public RoadNetwork() {
-        addEdge(new Intersection(0), new Intersection(1));
-        addEdge(new Intersection(0), new Intersection(2));
-        addEdge(new Intersection(1), new Intersection(3));
-        addEdge(new Intersection(2), new Intersection(3));
+    public RoadNetwork(int n) {
+        bakery = new Bakery(n);
+        addEdge(new Intersection(0, bakery), new Intersection(1, bakery));
+        addEdge(new Intersection(0, bakery), new Intersection(2, bakery));
+        addEdge(new Intersection(1, bakery), new Intersection(3, bakery));
+        addEdge(new Intersection(2, bakery), new Intersection(3, bakery));
 
         getVertex(0).setAdjIntersections(1, 2);
         getVertex(1).setAdjIntersections(0, 3);
@@ -31,8 +33,27 @@ public class RoadNetwork {
         network.put(s, new LinkedList<Intersection>());
     }
 
-    List<Intersection> getAdjVertices(int id) {
-        return network.get(new Intersection(id));
+    public boolean areAdjacent(int s, int d) {
+        for (Intersection v : network.keySet()) {
+            if (v.id == s) {
+                for (Intersection w : network.get(v)) {
+                    if (w.id == d) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void printGraph() {
+        for (Intersection v : network.keySet()) {
+            System.out.print(v.id + " is connected to ");
+            for (Intersection w : network.get(v)) {
+                System.out.print(w.id + " ");
+            }
+            System.out.println();
+        }
     }
 
     public void stopLights() {

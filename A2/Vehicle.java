@@ -4,10 +4,10 @@ public class Vehicle extends Thread {
     private int currentIntersection;
     private String name;
 
-    public Vehicle(RoadNetwork _roadNetwork) {
+    public Vehicle(RoadNetwork _roadNetwork, String _name) {
         this.roadNetwork = _roadNetwork;
         this.path = new int[3];
-        this.name = Thread.currentThread().getName();
+        this.name = _name;
     }
 
     public void setPath(int id1, int id2, int id3) {
@@ -20,11 +20,17 @@ public class Vehicle extends Thread {
     @Override
     public void run() {
         for (int i = -1; i < 3; i++) {
+            // if no more in path, deq from last intersection
+            if (i == 2) {
+                Intersection current = roadNetwork.getVertex(currentIntersection);
+                current.deq();
+                break;
+            }
+
             Intersection next = roadNetwork.getVertex(path[i + 1]);
 
             if (currentIntersection == -1) {
                 next.enq(name);
-                System.out.println(name + " enq into " + next.id);
             } else {
                 Intersection current = roadNetwork.getVertex(currentIntersection);
 
@@ -32,10 +38,7 @@ public class Vehicle extends Thread {
                 while (!current.getEdgeState(next.id).equals("green")) {}
 
                 next.enq(name);
-                System.out.println(name + " enq into " + next.id);
-                // deq from the current intersection
                 current.deq();
-                System.out.println(name + " deq from " + current.id);
             }
             // update the current intersection
             currentIntersection = path[i+1];

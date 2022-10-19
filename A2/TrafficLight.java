@@ -8,10 +8,10 @@ public class TrafficLight extends Thread {
 
     public TrafficLight(int id1, int id2) {
         state = new State[4];
-        state[0] = new State(200, "red", "green");
-        state[1] = new State(400, "green", "yellow");
-        state[2] = new State(300, "green", "red");
-        state[3] = new State(400, "yellow", "red");
+        state[0] = new State(2000, "red", "green");
+        state[1] = new State(4000, "green", "yellow");
+        state[2] = new State(3000, "green", "red");
+        state[3] = new State(4000, "yellow", "red");
         numStates = state.length;
         currentState = 0;
         adjIntersection1 = id1;
@@ -54,9 +54,6 @@ public class TrafficLight extends Thread {
             newState = (int) (Math.random() * numStates);
         }
         currentState = newState;
-        System.out.println("Light " + adjIntersection1 + " changed to: " + state[currentState].e1 + "\n" +
-                "Light " + adjIntersection2 + " changed to: " + state[currentState].e2);
-        System.out.println("");
     }
 
     public State getLightState() {
