@@ -31,7 +31,9 @@ public class Intersection {
     }
 
     public void stopLight() {
-        light.stopLight();
+        if (light != null) {
+            light.stopLight();
+        }
     }
 
     public String getEdgeState(int edge) {

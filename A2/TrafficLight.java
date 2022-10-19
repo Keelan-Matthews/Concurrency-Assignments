@@ -8,10 +8,10 @@ public class TrafficLight extends Thread {
 
     public TrafficLight(int id1, int id2) {
         state = new State[4];
-        state[0] = new State(2000, "red", "green");
-        state[1] = new State(4000, "green", "yellow");
-        state[2] = new State(3000, "green", "red");
-        state[3] = new State(4000, "yellow", "red");
+        state[0] = new State(200, "red", "green");
+        state[1] = new State(400, "red", "yellow");
+        state[2] = new State(300, "green", "red");
+        state[3] = new State(400, "yellow", "red");
         numStates = state.length;
         currentState = 0;
         adjIntersection1 = id1;

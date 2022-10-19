@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int numVehicles = 1;
+        int numVehicles = 3;
         RoadNetwork roadNetwork = new RoadNetwork(numVehicles);
         // make list of car names
         ArrayList<String> carNames = generateNames(numVehicles);
