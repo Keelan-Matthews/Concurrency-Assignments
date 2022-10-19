@@ -10,6 +10,10 @@ public class Vehicle extends Thread {
         this.name = _name;
     }
 
+    public String getCarName() {
+        return name;
+    }
+
     public void setPath(int id1, int id2, int id3) {
         this.path[0] = id1;
         this.path[1] = id2;
@@ -37,7 +41,7 @@ public class Vehicle extends Thread {
                 // wait for the light to be green
                 while (!current.getEdgeState(next.id).equals("green")) {
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(400);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

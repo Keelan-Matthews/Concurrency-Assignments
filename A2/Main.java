@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int numVehicles = 3;
+        int numVehicles = 5;
         RoadNetwork roadNetwork = new RoadNetwork(numVehicles);
         // make list of car names
         ArrayList<String> carNames = generateNames(numVehicles);
@@ -28,6 +28,7 @@ public class Main {
                 id3 = (int) (Math.random() * 4);
             }
 
+            System.out.println(vehicles[i].getCarName() + " path: " + id1 + " " + id2 + " " + id3);
             vehicles[i].setPath(id1, id2, id3);
         }  
 
