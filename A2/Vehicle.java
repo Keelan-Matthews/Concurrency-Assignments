@@ -37,11 +37,10 @@ public class Vehicle extends Thread {
                 next.enq(name);
             } else {
                 Intersection current = roadNetwork.getVertex(currentIntersection);
-
                 // wait for the light to be green
-                while (!current.getEdgeState(next.id).equals("green")) {
+                while (!current.getEdgeState(next.id).equals("green") && !current.getEdgeState(next.id).equals("yellow") ) {
                     try {
-                        Thread.sleep(400);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

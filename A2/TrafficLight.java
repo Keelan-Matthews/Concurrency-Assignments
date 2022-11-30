@@ -49,11 +49,7 @@ public class TrafficLight extends Thread {
     }
 
     public void changeState() {
-        int newState = (int) (Math.random() * numStates);
-        while (newState == currentState) {
-            newState = (int) (Math.random() * numStates);
-        }
-        currentState = newState;
+        currentState = (currentState + 1) % numStates;
     }
 
     public State getLightState() {

@@ -10,7 +10,6 @@ public class Intersection {
     int capacity;
     volatile Node head, tail;
     TrafficLight light;
-    private Bakery bakery;
 
     public Intersection(int _id, Bakery _bakery) {
         this.id = _id;
@@ -22,7 +21,6 @@ public class Intersection {
         capacity = 2;
         head = new Node(null);
         tail = head;
-        bakery = _bakery;
     }
 
     public void setAdjIntersections(int i1, int i2) {
@@ -58,11 +56,8 @@ public class Intersection {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            bakery.lock();
-            try {
+            synchronized (System.out) {
                 printQueue();
-            } finally {
-                bakery.unlock();
             }
             enqLock.unlock();
         }
@@ -90,11 +85,8 @@ public class Intersection {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            bakery.lock();
-            try {
+            synchronized (System.out) {
                 printQueue();
-            } finally {
-                bakery.unlock();
             }
             deqLock.unlock();
         }
